@@ -5,6 +5,23 @@ import random
 from openpyxl import Workbook
 from io import BytesIO
 
+import sys
+import subprocess
+import pkg_resources
+
+required = {'pywin32': '306'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required.keys() - installed
+
+if sys.platform == "win32" and missing:
+    python = sys.executable
+    subprocess.check_call([python, '-m', 'pip', 'install', 'pywin32==306'])
+
+from flask import Flask
+app = Flask(__name__)
+# Rest of your code
+
+
 app = Flask(__name__)
 
 # Mapping the original class types to the new names
