@@ -2,25 +2,11 @@ from flask import Flask, request, jsonify, render_template, send_file
 import requests
 import pyttsx3
 import random
-from openpyxl import Workbook
-from io import BytesIO
-
 import sys
 import subprocess
 import pkg_resources
-
-required = {'pywin32': '306'}
-installed = {pkg.key for pkg in pkg_resources.working_set}
-missing = required.keys() - installed
-
-if sys.platform == "win32" and missing:
-    python = sys.executable
-    subprocess.check_call([python, '-m', 'pip', 'install', 'pywin32==306'])
-
-from flask import Flask
-app = Flask(__name__)
-# Rest of your code
-
+from openpyxl import Workbook
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -141,6 +127,22 @@ def download_results():
     buffer.seek(0)
 
     return send_file(buffer, attachment_filename=f'{drug_name}_drug_class_results.xlsx', as_attachment=True)
+
+
+# Conditionally install pywin32 on Windows
+required = {'pywin32': '306'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required.keys() - installed
+
+if sys.platform == "win32" and missing:
+    python = sys.executable
+    subprocess.check_call([python, '-m', 'pip', 'install', 'pywin32==306'])
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello, World!"
 
 if __name__ == '__main__':
     app.run(debug=True)

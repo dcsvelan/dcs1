@@ -61,7 +61,6 @@ python-dotenv==1.0.1
 python-multipart==0.0.9
 pyttsx3==2.90
 pytz==2024.1
-pywin32==306
 PyYAML==6.0.1
 referencing==0.35.1
 regex==2024.5.15
@@ -95,3 +94,4 @@ websockets==12.0
 Werkzeug==3.0.3
 yarl==1.9.4
 smmap>=3.0.1,<6
+pywin32==306; platform_system == 'Windows'
